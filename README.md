@@ -25,9 +25,9 @@ One of the challenges in the study of generative adversarial networks is the ins
 
 
 ## Tensorboard
-    $ tensorboard --logdir log/[scope] --port [(optinal) 4 digit port number]
+    $ tensorboard --logdir log/[scope] --port [(optional) 4 digit port number]
 
 Then, click **http://localhost:6006**
 
-* You can change **[(optinal) 4 digit port number]**
+* You can change **[(optional) 4 digit port number]**
 * 4 digit port number = 6006 (default)
