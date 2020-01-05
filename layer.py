@@ -2,6 +2,8 @@ import torch
 import torch.nn as nn
 from torch.nn import Parameter
 
+from torch.nn.utils import *
+
 
 class CNR2d(nn.Module):
     def __init__(self, nch_in, nch_out, kernel_size=4, stride=1, padding=1, norm='bnorm', relu=0.0, drop=[], bias=[], snorm=False):
@@ -125,7 +127,8 @@ class Conv2d(nn.Module):
     def __init__(self, nch_in, nch_out, kernel_size=4, stride=1, padding=1, bias=True, snorm=False):
         super(Conv2d, self).__init__()
         if snorm:
-            self.conv = SpectralNorm(nn.Conv2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias))
+            # self.conv = SpectralNorm(nn.Conv2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias))
+            self.conv = spectral_norm(nn.Conv2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias))
         else:
             self.conv = nn.Conv2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, bias=bias)
 
@@ -137,7 +140,8 @@ class Deconv2d(nn.Module):
     def __init__(self, nch_in, nch_out, kernel_size=4, stride=1, padding=1, output_padding=0, bias=True, snorm=False):
         super(Deconv2d, self).__init__()
         if snorm:
-            self.deconv = SpectralNorm(nn.ConvTranspose2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, output_padding=output_padding, bias=bias))
+            # self.deconv = SpectralNorm(nn.ConvTranspose2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, output_padding=output_padding, bias=bias))
+            self.deconv = spectral_norm(nn.ConvTranspose2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, output_padding=output_padding, bias=bias))
         else:
             self.deconv = nn.ConvTranspose2d(nch_in, nch_out, kernel_size=kernel_size, stride=stride, padding=padding, output_padding=output_padding, bias=bias)
 
@@ -265,8 +269,8 @@ class SpectralNorm(nn.Module):
 
         height = w.data.shape[0]
         for _ in range(self.power_iterations):
-            v.data = self._l2normalize(torch.mv(torch.t(w.view(height,-1).data), u.data))
-            u.data = self._l2normalize(torch.mv(w.view(height,-1).data, v.data))
+            v.data = self._l2normalize(torch.mv(torch.t(w.view(height, -1).data), u.data))
+            u.data = self._l2normalize(torch.mv(w.view(height, -1).data, v.data))
 
         # sigma = torch.dot(u.data, torch.mv(w.view(height,-1).data, v.data))
         sigma = u.dot(w.view(height, -1).mv(v))

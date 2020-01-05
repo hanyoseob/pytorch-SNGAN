@@ -10,7 +10,6 @@ import matplotlib.pyplot as plt
 from matplotlib.pyplot import cm
 from statistics import mean
 
-
 class Train:
     def __init__(self, args):
         self.mode = args.mode
@@ -152,7 +151,7 @@ class Train:
 
         dataset_train = Dataset(dir_data_train, data_type=self.data_type, nch=self.nch_out, transform=transform_train)
 
-        loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=0)
+        loader_train = torch.utils.data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=8)
 
         num_train = len(dataset_train)
 
