@@ -1,39 +1,32 @@
 import os
 import numpy as np
+import torch
+import torchvision.utils as vutils
 import matplotlib.pyplot as plt
 
-## setup scope title
-# scope = 'trans2dens_1linear_l2'
-scope = 'trans2dens_1linear_l1'
+dir_result = './result/sngan/celeba/images'
+lst_result = os.listdir(dir_result)
 
-dir_output = os.path.join('./result', scope)
-dir_data = './data/'
+np.random.shuffle(lst_result)
 
-num_train = 8000
-num_val = 1000
-num_test = 1000
+nx = 64
+ny = 64
+nch = 3
 
-## load list of output
-lst_output = os.listdir(dir_output)
-lst_output.sort(key=lambda l: int(''.join(filter(str.isdigit, l))))
+n = 8
+m = 4
 
-fig, ax = plt.subplots()
+img = torch.zeros((n*m, ny, nx, nch))
 
-for i, name in enumerate(lst_output, num_train + num_val):
-    output = np.load(os.path.join(dir_output, name))
-    label = np.load(os.path.join(dir_data, 'label_%05d_1d.npy' % i))
+for i in range(n*m):
+    img[i, :, :, :] = torch.from_numpy(plt.imread(os.path.join(dir_result, lst_result[i]))[:, :, :nch])
 
-    ax.plot(output, 'b-')
-    ax.plot(label, 'r--')
+img = img.permute((0, 3, 1, 2))
 
-    ax.set_xlim(0, 400)
-    ax.set_ylim(0, 40)
+plt.figure(figsize=(n, m))
+plt.axis("off")
+# plt.title("Generated Images")
+plt.imshow(np.transpose(vutils.make_grid(img, padding=2, normalize=True), (1, 2, 0)))
 
-    ax.grid(True)
-    ax.set_ylabel('Density')
-    ax.set_xlabel('Radius')
-    ax.legend(('Output', 'Label'), loc='upper right')
-    plt.title('%04d / %04d' % (i - (num_train + num_val) + 1, num_test))
+plt.show()
 
-    plt.pause(0.3)
-    plt.cla()

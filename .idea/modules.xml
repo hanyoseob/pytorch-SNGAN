@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/pytorch-SAGAN.iml" filepath="$PROJECT_DIR$/.idea/pytorch-SAGAN.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/pytorch-SNGAN.iml" filepath="$PROJECT_DIR$/.idea/pytorch-SNGAN.iml" />
     </modules>
   </component>
 </project>
