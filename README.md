@@ -76,7 +76,7 @@ After the above comment executes, go **http://localhost:6006**
     |           \---model_epoch12345.pth
     +---[dir_data]
     |   \---[name_data]
-    |       +---000000.jpg
+    |       +---000000.png
     |       |   ...
     |       \---12345.png
     +---[dir_log]
@@ -106,7 +106,7 @@ After the above comment executes, go **http://localhost:6006**
     |   \---celeba
     |       +---000001.jpg
     |       |   ...
-    |       \---202599.png
+    |       \---202599.jpg
     +---log
     |   \---sngan
     |       \---celeba
