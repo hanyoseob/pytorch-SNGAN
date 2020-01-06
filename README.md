@@ -23,7 +23,7 @@ One of the challenges in the study of generative adversarial networks is the ins
 
 * Set **[scope name]** uniquely.
 * To understand hierarchy of directories based on their arguments, see **directories structure** below. 
-* Hyperparameters were written to **arg.txt** under the log directory.
+* Hyperparameters were written to **arg.txt** under the **[log directory]**.
 
 ## Test
     $ python main.py --mode test \
@@ -51,7 +51,7 @@ One of the challenges in the study of generative adversarial networks is the ins
     $ tensorboard --logdir [log directory]/[scope name]/[data name] \
                   --port [(optional) 4 digit port number]
 ---
-    $ tensorboard --logdir ./log/sngan/celeba
+    $ tensorboard --logdir ./log/sngan/celeba \
                   --port 6006
                   
 After the above comment executes, go **http://localhost:6006**
