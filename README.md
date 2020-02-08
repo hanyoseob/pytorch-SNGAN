@@ -6,6 +6,8 @@
 #### Abstract
 One of the challenges in the study of generative adversarial networks is the instability of its training. In this paper, we propose a novel weight normalization technique called spectral normalization to stabilize the training of the discriminator. Our new normalization technique is computationally light and easy to incorporate into existing implementations. We tested the efficacy of spectral normalization on CIFAR10, STL-10, and ILSVRC2012 dataset, and we experimentally confirmed that spectrally normalized GANs (SN-GANs) is capable of generating images of better or equal quality relative to the previous training stabilization techniques.
         
+![alt text](./img/paper1.png "Novelty of SN-GAN")
+
 ## Train
     $ python main.py --mode train \
                      --scope [scope name] \
@@ -13,6 +15,7 @@ One of the challenges in the study of generative adversarial networks is the ins
                      --dir_data [data directory] \
                      --dir_log [log directory] \
                      --dir_checkpoint [checkpoint directory]
+                     --gpu_ids [gpu id; '-1': no gpu, '0, 1, ..., N-1': gpus]
 ---
     $ python main.py --mode train \
                      --scope sngan \
@@ -20,6 +23,7 @@ One of the challenges in the study of generative adversarial networks is the ins
                      --dir_data ./datasets \
                      --dir_log ./log \
                      --dir_checkpoint ./checkpoint
+                     --gpu_ids 0
 
 * Set **[scope name]** uniquely.
 * To understand hierarchy of directories based on their arguments, see **directories structure** below. 
@@ -33,6 +37,7 @@ One of the challenges in the study of generative adversarial networks is the ins
                      --dir_log [log directory] \
                      --dir_checkpoint [checkpoint directory] \
                      --dir_result [result directory]
+                     --gpu_ids [gpu id; '-1': no gpu, '0, 1, ..., N-1': gpus]
 ---
     $ python main.py --mode test \
                      --scope sngan \
@@ -41,6 +46,7 @@ One of the challenges in the study of generative adversarial networks is the ins
                      --dir_log ./log \
                      --dir_checkpoint ./checkpoints \
                      --dir_result ./results
+                     --gpu_ids 0
 
 * To test using trained network, set **[scope name]** defined in the **train** phase.
 * Generated images are saved in the **images** subfolder along with **[result directory]** folder.
